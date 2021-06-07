@@ -19,7 +19,7 @@ const Sidebar = () => {
     const [isOpen, setIsOpen] = useState(false)
     const userChatsReference = db
         .collection("chats")
-        .where("users", "array-contains", user.email);
+        .where("users", "array-contains", user?.email);
     const [chatsSnapshot] = useCollection(userChatsReference);
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
@@ -33,6 +33,8 @@ const Sidebar = () => {
     }
 
     const signOut = () => {
+        // Change this 👇 if it does not work
+        router.push("/")
         auth.signOut()
     }
 
@@ -58,9 +60,9 @@ const Sidebar = () => {
             if (prompt === user?.email) {
                 alert("You cannot chat with yourself!")
             } else {
-                if (EmailValidator.validate(prompt) && !chatAlreadyExist(prompt) && prompt !== user.email) {
+                if (EmailValidator.validate(prompt) && !chatAlreadyExist(prompt) && prompt !== user?.email) {
                     db.collection("chats").add({
-                        users: [user.email, prompt],
+                        users: [user?.email, prompt],
                     });
                 } else {
                     alert(`\"${prompt}\" already exists`)
