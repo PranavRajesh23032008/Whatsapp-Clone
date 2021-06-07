@@ -7,7 +7,7 @@ import firebase from "firebase"
 import styled from "styled-components"
 import db, { auth } from "../firebase"
 import Message from "./Message";
-import { Send } from "@material-ui/icons";
+import { ArrowBack, Send } from "@material-ui/icons";
 
 const ChatScreen = ({ name, pic }) => {
 
@@ -55,6 +55,9 @@ const ChatScreen = ({ name, pic }) => {
     <Container>
       {/* Header */}
       <Header className={"bg-gray-100"}>
+        <BackToHome className={"mr-3 cursor-pointer"}>
+          < ArrowBack onClick={() => { router.push("/") }} />
+        </BackToHome>
         <Avatar src={pic} />
         <HeaderInformation style={{
           marginLeft: 10,
@@ -64,7 +67,7 @@ const ChatScreen = ({ name, pic }) => {
       </Header>
       {/* Message Field */}
       <MessageContainer className="doodle removeScroller">
-
+        {ScrollToBottom}
         {messagesSnapshot?.docs.map((message) => (
           <Message key={message.id} user={message.data().user} message={{
             ...message.data(),
@@ -98,6 +101,12 @@ const Container = styled.div`
 `;
 
 const ButtonIcon = styled(IconButton)`
+@media (min-width: 769px) {
+  display: none;
+}
+`;
+
+const BackToHome = styled.div`
 @media (min-width: 769px) {
   display: none;
 }
