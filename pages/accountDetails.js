@@ -3,6 +3,7 @@ import { auth } from "../firebase"
 import { useRouter } from "next/router"
 import Head from "next/head"
 import { IconButton } from '@material-ui/core';
+import styled from "styled-components"
 
 
 const accountDetails = () => {
@@ -12,7 +13,7 @@ const accountDetails = () => {
         router.push("/")
     }
     return (
-        <div style={{ height: "100vh", backgroundColor: "#EDEDED" }} className={"w-72"}>
+        <AccountDetails style={{ height: "100vh", backgroundColor: "#EDEDED" }} className={"w-72"}>
             <Head>
                 <title>
                     Account Details
@@ -44,8 +45,13 @@ const accountDetails = () => {
                     {user.email}
                 </p>
             </div>
-        </div>
+        </AccountDetails>
     )
 }
 
 export default accountDetails
+
+const AccountDetails = styled.div`
+@media (max-width: 769px) {
+    width: 100%
+  }`;

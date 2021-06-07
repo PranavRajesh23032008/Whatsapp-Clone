@@ -25,7 +25,9 @@ const Chat = ({ chat, messages }) => {
                     <title>You are chatting with "{recipientEmail}"</title>
                 )}
             </Head>
+            <SidebarChatSection>
                 <Sidebar />
+            </SidebarChatSection>
             <ChatContainer>
             <ChatScreen 
                 pic={recipient?.photoURL}
@@ -78,3 +80,8 @@ const ChatContainer = styled.div`
   height: 100vh;
 `;
 
+const SidebarChatSection = styled.div`
+    @media (max-width: 768px) {
+        display: none;
+    }
+`;

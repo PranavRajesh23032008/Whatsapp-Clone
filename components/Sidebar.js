@@ -1,6 +1,7 @@
 import { Avatar, Menu, MenuItem, IconButton } from "@material-ui/core"
 import { auth } from '../firebase'
 import db from '../firebase'
+import styled from "styled-components"
 import { AccountCircle, Chat, ExitToApp, ExitToAppOutlined, MoreVertOutlined } from "@material-ui/icons"
 import SidebarChat from './SidebarChat'
 import { Dialog, Transition } from '@headlessui/react'
@@ -75,7 +76,7 @@ const Sidebar = () => {
     }
 
     return (
-        <div style={{ height: "100vh", backgroundColor: "#F8F8F8" }} className={"w-72"}>
+        <SidebarComponent style={{ height: "100vh", backgroundColor: "#F8F8F8" }} className={"w-72"}>
             {/* Top of Sidebar */}
             <div className={"bg-gray-200 flex items-center p-5"}>
                 <Avatar className={"cursor-pointer"} onClick={handleClick} src={user?.photoURL} />
@@ -170,8 +171,13 @@ const Sidebar = () => {
                     <SidebarChat key={chat.id} id={chat.id} users={chat.data().users} />
                 ))}
             </div>
-        </div >
+        </SidebarComponent>
     )
 }
 
 export default Sidebar
+
+const SidebarComponent = styled.div`
+@media (max-width: 769px) {
+    width: 100%
+  }`;

@@ -7,6 +7,7 @@ import firebase from "firebase"
 import styled from "styled-components"
 import db, { auth } from "../firebase"
 import Message from "./Message";
+import { Send } from "@material-ui/icons";
 
 const ChatScreen = ({ name, pic }) => {
 
@@ -81,9 +82,9 @@ const ChatScreen = ({ name, pic }) => {
           placeholder={`Send a message to ${name}`}
         />
 
-        <button hidden disabled={!message} type="submit" onClick={send}>
-          Send Message
-        </button>
+        <ButtonIcon hidden={false} disabled={!message} type="submit" onClick={send} >
+          <Send />
+        </ButtonIcon>
       </InputContainer>
     </Container >
   )
@@ -94,6 +95,12 @@ export default ChatScreen
 const Container = styled.div`
   display: flex;
   flex-direction: column;
+`;
+
+const ButtonIcon = styled(IconButton)`
+@media (min-width: 769px) {
+  display: none;
+}
 `;
 
 const Header = styled.div`
