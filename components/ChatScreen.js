@@ -134,9 +134,8 @@ const HeaderInformation = styled.div`
 `;
 
 const MessageContainer = styled.div`
-padding: 30px;
-
-min-height: 90vh;
+  padding: 30px;
+  height: 78.5vh;
   overflow: scroll
 `;
 

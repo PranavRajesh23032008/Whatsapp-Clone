@@ -78,9 +78,9 @@ const Sidebar = () => {
     }
 
     return (
-        <SidebarComponent style={{ height: "100vh", backgroundColor: "#F8F8F8" }} className={"w-72"}>
+        <SidebarComponent style={{ backgroundColor: "#F8F8F8" }}>
             {/* Top of Sidebar */}
-            <div className={"bg-gray-200 flex items-center p-5"}>
+            <SidebarTopPart className={"bg-gray-200 flex items-center p-5"}>
                 <Avatar className={"cursor-pointer"} onClick={handleClick} src={user?.photoURL} />
                 <Menu
                     id="simple-menu"
@@ -166,7 +166,7 @@ const Sidebar = () => {
                     </Transition>
 
                 </div>
-            </div>
+            </SidebarTopPart>
             {/* Chat List */}
             <div style={{ height: "87.5vh" }} className={"removeScroller overflow-scroll"}>
                 {chatsSnapshot?.docs.map((chat) => (
@@ -180,6 +180,17 @@ const Sidebar = () => {
 export default Sidebar
 
 const SidebarComponent = styled.div`
-@media (max-width: 769px) {
-    width: 100%
-  }`;
+flex: 0.45;
+height: 100vh;
+width: 300px;
+`;
+
+const SidebarTopPart = styled.div`
+position: sticky;
+z-index: 100;
+top: 0;
+display: flex;
+align-items: center;
+`;
+
+
