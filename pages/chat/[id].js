@@ -83,5 +83,5 @@ const ChatContainer = styled.div`
 const SidebarChatSection = styled.div`
     @media (max-width: 768px) {
         display: none;
-    }
+    };
 `;
