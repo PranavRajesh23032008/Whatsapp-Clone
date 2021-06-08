@@ -74,7 +74,7 @@ const ChatScreen = ({ name, pic }) => {
             timestamp: message.data().timestamp?.toDate().getTime(),
           }} />
         ))}
-        <p ref={endOfMessagesRef} />
+        <EndOfMessage ref={endOfMessagesRef} />
       </MessageContainer>
       {/* Input Field */}
       <InputContainer className={"bg-gray-100"}>
@@ -134,17 +134,20 @@ const HeaderInformation = styled.div`
 `;
 
 const MessageContainer = styled.div`
-  padding: 30px;
-  height: 78.5vh;
+padding: 30px;
+
+min-height: 90vh;
   overflow: scroll
 `;
 
 const InputContainer = styled.form`
-  display: flex;
-  align-items: center;
-  position: sticky;
-  bottom: 0;
-  z-index: 100;
+display: flex;
+align-items: center;
+padding: 10px;
+position: sticky;
+bottom: 0;
+background-color: #f2f2f2;
+z-index: 100;
 `;
 
 const Input = styled.input`

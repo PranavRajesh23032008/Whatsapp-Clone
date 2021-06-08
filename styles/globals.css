@@ -13,7 +13,7 @@ body {
 
 
 .doodle {
-  background: url("../Images/Doodle.png");
+  background: #E4DBD6
 }
 
 .removeScroller::-webkit-scrollbar {
