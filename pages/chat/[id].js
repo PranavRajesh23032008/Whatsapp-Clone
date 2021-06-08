@@ -29,10 +29,18 @@ const Chat = ({ chat, messages }) => {
                 <Sidebar />
             </SidebarChatSection>
             <ChatContainer>
-            <ChatScreen 
-                pic={recipient?.photoURL}
-                name={recipient?.name}
-            />
+            {recipient ? (
+                               <ChatScreen 
+                               pic={recipient?.photoURL}
+                               name={recipient?.name}
+                           />
+                ) : (
+                    <ChatScreen 
+                    pic={recipient?.photoURL}
+                    name={recipientEmail}
+                />
+                )}
+
             </ChatContainer>
         </Container>
     )
