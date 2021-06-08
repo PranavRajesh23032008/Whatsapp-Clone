@@ -182,7 +182,6 @@ export default Sidebar
 const SidebarComponent = styled.div`
 flex: 0.45;
 height: 100vh;
-width: 300px;
 `;
 
 const SidebarTopPart = styled.div`
