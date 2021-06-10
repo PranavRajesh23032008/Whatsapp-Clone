@@ -7,6 +7,7 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import getRecipientEmail from "../../utils/getRecipientEmail";
 import { useCollection } from "react-firebase-hooks/firestore"
 import styled from "styled-components"
+import TimeAgo from "timeago-react"
 
 const Chat = ({ chat, messages }) => {
     const [user] = useAuthState(auth)
@@ -30,15 +31,21 @@ const Chat = ({ chat, messages }) => {
             </SidebarChatSection>
             <ChatContainer>
             {recipient ? (
-                               <ChatScreen 
-                               pic={recipient?.photoURL}
-                               name={recipient?.name}
-                           />
-                ) : (
-                    <ChatScreen 
-                    pic={recipient?.photoURL}
-                    name={recipientEmail}
-                />
+                <ChatScreen 
+                pic={recipient?.photoURL}
+                name={recipient?.name}
+                lastActive={(
+                    <div>
+                        Last seen: <TimeAgo datetime={recipient?.lastSeen?.toDate()} />
+                    </div>
+                  ) }
+
+            /> ) : (
+            <ChatScreen 
+                pic={recipient?.photoURL}
+                name={recipientEmail}
+                lastActive={"This user is Unavailable!"}
+            />
                 )}
 
             </ChatContainer>

@@ -7,14 +7,26 @@ import firebase from "firebase"
 import styled from "styled-components"
 import db, { auth } from "../firebase"
 import Message from "./Message";
-import { ArrowBack, Send } from "@material-ui/icons";
+import { ArrowBack, Send, EmojiEmotionsOutlined } from "@material-ui/icons";
+import Picker from "emoji-picker-react"
 
-const ChatScreen = ({ name, pic }) => {
+const ChatScreen = ({ name, pic, lastActive }) => {
 
   const [user] = useAuthState(auth);
   const [message, setMessage] = useState("")
   const endOfMessagesRef = useRef(null);
   const router = useRouter()
+  const [emojiPickerState, SetEmojiPicker] = useState(false);
+  const [chosenEmoji, setChosenEmoji] = useState(null);
+
+  const selectEmoji = (event, emojiObject) => {
+    setMessage(message + emojiObject.emoji)
+  }
+
+  function triggerPicker(event) {
+    event.preventDefault();
+    SetEmojiPicker(!emojiPickerState);
+  }
   const [messagesSnapshot] = useCollection(
     db
       .collection("chats")
@@ -33,6 +45,7 @@ const ChatScreen = ({ name, pic }) => {
 
   const send = (e) => {
     e.preventDefault();
+    SetEmojiPicker(!emojiPickerState);
 
     db.collection("users").doc(user.email).set(
       {
@@ -55,7 +68,7 @@ const ChatScreen = ({ name, pic }) => {
     <Container>
       {/* Header */}
       <Header className={"bg-gray-100"}>
-        <BackToHome className={"mr-3 cursor-pointer"}>
+        <BackToHome className={"mr-3 focus:outline-none cursor-pointer"}>
           < ArrowBack onClick={() => { router.push("/") }} />
         </BackToHome>
         <Avatar src={pic} />
@@ -63,10 +76,11 @@ const ChatScreen = ({ name, pic }) => {
           marginLeft: 10,
         }} className={"flex-col ml-1"}>
           <p style={{ color: "#515151" }} className={"text-lg font-semibold "}>{name}</p>
+          <p className={"text-xs text-gray-500"}>{lastActive}</p>
         </HeaderInformation>
       </Header>
       {/* Message Field */}
-      <MessageContainer className="doodle removeScroller">
+      <MessageContainer className="doodle removeScroller p-3 ">
         {ScrollToBottom}
         {messagesSnapshot?.docs.map((message) => (
           <Message key={message.id} user={message.data().user} message={{
@@ -77,7 +91,18 @@ const ChatScreen = ({ name, pic }) => {
         <EndOfMessage ref={endOfMessagesRef} />
       </MessageContainer>
       {/* Input Field */}
+      <EmojiPicker className={"absolute"}>
+        <Picker
+          title="Pick your emoji…"
+          emoji="point_up"
+          onEmojiClick={selectEmoji}
+        />
+      </EmojiPicker>
+
       <InputContainer className={"bg-gray-100"}>
+        <IconButton onClick={triggerPicker} className={"focus:outline-none"}>
+          <EmojiEmotionsOutlined />
+        </IconButton>
         <Input
           value={message}
           onChange={(e) => setMessage(e.target.value)}
@@ -89,15 +114,17 @@ const ChatScreen = ({ name, pic }) => {
           <Send />
         </ButtonIcon>
       </InputContainer>
-    </Container >
+    </ Container>
   )
 }
 
 export default ChatScreen
 
 const Container = styled.div`
-  display: flex;
-  flex-direction: column;
+display: flex;
+flex-direction: column;
+flex: 0.65;
+height: 100vh;
 `;
 
 const ButtonIcon = styled(IconButton)`
@@ -106,20 +133,21 @@ const ButtonIcon = styled(IconButton)`
 }
 `;
 
-const BackToHome = styled.div`
+const BackToHome = styled(IconButton)`
 @media (min-width: 769px) {
   display: none;
 }
 `;
-
+const EmojiPicker = styled.div`
+  margin-top: 42vh;
+`;
 const Header = styled.div`
-  position: sticky;
-  z-index: 100;
-  top: 0;
-  display: flex;
-  padding: 15px;
-  height: 80px;
   align-items: center;
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 1px solid lightgray;
+  background-color: #f5f5f5;
 `;
 
 const HeaderInformation = styled.div`
@@ -134,30 +162,28 @@ const HeaderInformation = styled.div`
 `;
 
 const MessageContainer = styled.div`
-  padding: 30px;
-  height: 78.5vh;
-  overflow: scroll
+flex: 1;
+overflow: scroll;
 `;
 
 const InputContainer = styled.form`
+position: sticky;
+  z-index: 100;
+  top: 0;
 display: flex;
 align-items: center;
-padding: 10px;
-position: sticky;
-bottom: 0;
+padding: 15px;
 background-color: #f2f2f2;
-z-index: 100;
 `;
 
 const Input = styled.input`
+
   flex: 1;
   outline: 0;
   border: none;
-  padding: 25px;
   background-color: transparent
 `;
 
 const EndOfMessage = styled.div`
   margin-bottom: 50px;
 `;
-

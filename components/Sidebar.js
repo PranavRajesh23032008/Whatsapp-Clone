@@ -2,7 +2,7 @@ import { Avatar, Menu, MenuItem, IconButton } from "@material-ui/core"
 import { auth } from '../firebase'
 import db from '../firebase'
 import styled from "styled-components"
-import { AccountCircle, Chat, ExitToApp, ExitToAppOutlined, MoreVertOutlined } from "@material-ui/icons"
+import { AccountCircle, Chat, ExitToAppOutlined } from "@material-ui/icons"
 import SidebarChat from './SidebarChat'
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useState } from 'react'
@@ -82,6 +82,7 @@ const Sidebar = () => {
             {/* Top of Sidebar */}
             <SidebarTopPart className={"bg-gray-200 flex items-center p-5"}>
                 <Avatar className={"cursor-pointer"} onClick={handleClick} src={user?.photoURL} />
+
                 <Menu
                     id="simple-menu"
                     anchorEl={anchorEl}
