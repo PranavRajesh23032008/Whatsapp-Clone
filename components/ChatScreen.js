@@ -7,7 +7,8 @@ import firebase from "firebase"
 import styled from "styled-components"
 import db, { auth } from "../firebase"
 import Message from "./Message";
-import { ArrowBack, Send, EmojiEmotionsOutlined } from "@material-ui/icons";
+import { ArrowBack, Send } from "@material-ui/icons";
+
 
 const ChatScreen = ({ name, pic, lastActive }) => {
 
@@ -34,22 +35,18 @@ const ChatScreen = ({ name, pic, lastActive }) => {
 
   const send = (e) => {
     e.preventDefault();
-    SetEmojiPicker(!emojiPickerState);
-
     db.collection("users").doc(user.email).set(
       {
         lastSeen: firebase.firestore.FieldValue.serverTimestamp(),
       },
       { merge: true }
     );
-
     db.collection("chats").doc(router.query.id).collection("messages").add({
       timestamp: firebase.firestore.FieldValue.serverTimestamp(),
       message: message,
       user: user.email,
       photoURL: user.photoURL,
     });
-
     setMessage("")
     ScrollToBottom();
   }
@@ -79,7 +76,11 @@ const ChatScreen = ({ name, pic, lastActive }) => {
         ))}
         <EndOfMessage ref={endOfMessagesRef} />
       </MessageContainer>
+      {/* Input Field */}
+
+
       <InputContainer className={"bg-gray-100"}>
+
         <Input
           value={message}
           onChange={(e) => setMessage(e.target.value)}

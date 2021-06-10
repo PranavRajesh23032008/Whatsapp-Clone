@@ -33,7 +33,6 @@ const Sidebar = () => {
     }
 
     const signOut = () => {
-        // Change this 👇 if it does not work
         router.push("/")
         auth.signOut()
     }
