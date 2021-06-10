@@ -29,7 +29,7 @@ const accountDetails = () => {
             {/* Details */}
             <img src={user.photoURL} className={"rounded-full h-52 w-52 my-5 mx-auto"} />
 
-            <div className={"bg-white shadow-sm px-5 py-2 mb-2 mb-1"}>
+            <div className={"bg-white shadow-sm px-5 py-2 mb-2"}>
                 <div style={{ color: "#00bfa5" }} className={"text-sm font-semibold"}>
                     Your Name
                 </div>
