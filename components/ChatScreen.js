@@ -8,7 +8,6 @@ import styled from "styled-components"
 import db, { auth } from "../firebase"
 import Message from "./Message";
 import { ArrowBack, Send, EmojiEmotionsOutlined } from "@material-ui/icons";
-import Picker from "emoji-picker-react"
 
 const ChatScreen = ({ name, pic, lastActive }) => {
 
@@ -16,17 +15,7 @@ const ChatScreen = ({ name, pic, lastActive }) => {
   const [message, setMessage] = useState("")
   const endOfMessagesRef = useRef(null);
   const router = useRouter()
-  const [emojiPickerState, SetEmojiPicker] = useState(false);
-  const [chosenEmoji, setChosenEmoji] = useState(null);
 
-  const selectEmoji = (event, emojiObject) => {
-    setMessage(message + emojiObject.emoji)
-  }
-
-  function triggerPicker(event) {
-    event.preventDefault();
-    SetEmojiPicker(!emojiPickerState);
-  }
   const [messagesSnapshot] = useCollection(
     db
       .collection("chats")
@@ -90,19 +79,7 @@ const ChatScreen = ({ name, pic, lastActive }) => {
         ))}
         <EndOfMessage ref={endOfMessagesRef} />
       </MessageContainer>
-      {/* Input Field */}
-      <EmojiPicker className={"absolute"}>
-        <Picker
-          title="Pick your emoji…"
-          emoji="point_up"
-          onEmojiClick={selectEmoji}
-        />
-      </EmojiPicker>
-
       <InputContainer className={"bg-gray-100"}>
-        <IconButton onClick={triggerPicker} className={"focus:outline-none"}>
-          <EmojiEmotionsOutlined />
-        </IconButton>
         <Input
           value={message}
           onChange={(e) => setMessage(e.target.value)}
@@ -138,9 +115,7 @@ const BackToHome = styled(IconButton)`
   display: none;
 }
 `;
-const EmojiPicker = styled.div`
-  margin-top: 42vh;
-`;
+
 const Header = styled.div`
   align-items: center;
   padding: 20px;
