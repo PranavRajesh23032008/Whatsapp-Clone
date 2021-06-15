@@ -49,7 +49,6 @@ const Reciever = styled(MessageElement)`
     color: gray;
     font-size:13px;
     margin-bottom: 1px;
-    font-family: Roboto;
     color: #11887A;
   }
 `;
