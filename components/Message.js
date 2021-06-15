@@ -3,7 +3,7 @@ import { auth } from "../firebase";
 import styled from "styled-components";
 import moment from "moment";
 
-function Message({ user, message }) {
+function Message({ user, message, userName }) {
   const [userLoggedIn] = useAuthState(auth);
 
   const TypeOfMessage = user === userLoggedIn.email ? Sender : Reciever;
@@ -11,6 +11,7 @@ function Message({ user, message }) {
   return (
     <div>
       <TypeOfMessage>
+        <p>{userName}</p>
         {message.message}
         <Timestamp>
           {message.timestamp ? moment(message.timestamp).format("LT") : "..."}
@@ -35,12 +36,22 @@ const MessageElement = styled.p`
 const Sender = styled(MessageElement)`
   background-color: #E1FFC7;
   word-break: break-word;
-  margin-left: auto
+  margin-left: auto;
+  > p {
+    display: none;
+  }
 `;
 
 const Reciever = styled(MessageElement)`
   background-color: #fff;
   word-break: break-word;
+  > p {
+    color: gray;
+    font-size:13px;
+    margin-bottom: 1px;
+    font-family: Roboto;
+    color: #11887A;
+  }
 `;
 
 const Timestamp = styled.span`

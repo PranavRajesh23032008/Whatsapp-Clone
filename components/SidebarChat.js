@@ -31,7 +31,10 @@ const SidebarChat = ({ id, users, lastMessage }) => {
     return (
         <div
             onClick={goToChatScreen}
-            className={"w-full focus:outline-none text-left flex items-center cursor-pointer active:bg-white p-5 bg-gray-100 hover:transition-all"}
+            style={{
+                padding: "20px"
+            }}
+            className={"w-full focus:outline-none text-left flex items-center cursor-pointer hover:bg-white border-b bg-gray-100 hover:transition-all"}
         >
             {recipient ?
                 <Avatar src={recipient?.photoURL} />

@@ -92,7 +92,7 @@ const ChatScreen = ({ name, pic, lastActive, email }) => {
                 aria-hidden="true"
               >
                 &#8203;
-            </span>
+              </span>
               <Transition.Child
                 as={Fragment}
                 enter="ease-out duration-300"
@@ -143,7 +143,7 @@ const ChatScreen = ({ name, pic, lastActive, email }) => {
       <MessageContainer className="doodle removeScroller p-3 ">
         {ScrollToBottom}
         {messagesSnapshot?.docs.map((message) => (
-          <Message key={message.id} user={message.data().user} message={{
+          <Message userName={name} key={message.id} user={message.data().user} message={{
             ...message.data(),
             timestamp: message.data().timestamp?.toDate().getTime(),
           }} />
