@@ -10,7 +10,7 @@ import styled from "styled-components"
 import TimeAgo from "timeago-react"
 import { useRouter } from "next/router"
 
-const Chat = ({chat, messages }) => {
+const Chat = ({ chat, messages }) => {
     const [user] = useAuthState(auth)
     const [recipientSnapshot] = useCollection(
         db.collection("users").where("email", "==", getRecipientEmail(chat.users, user))
@@ -32,22 +32,22 @@ const Chat = ({chat, messages }) => {
                 <Sidebar />
             </SidebarChatSection>
             <ChatContainer>
-            {recipient ? (
-                <ChatScreen 
-                pic={recipient?.photoURL}
-                name={recipient?.name}
-                email={recipient?.email}
-                lastActive={(
-                    <div>
-                        Last seen: <TimeAgo datetime={recipient?.lastSeen?.toDate()} />
-                    </div>
-                  )}
-            /> ) : (
-            <ChatScreen 
-                pic={recipient?.photoURL}
-                name={recipientEmail}
-                lastActive={"This user is Unavailable!"}
-            />
+                {recipient ? (
+                    <ChatScreen
+                        pic={recipient?.photoURL}
+                        name={recipient?.name}
+                        email={recipient?.email}
+                        lastActive={(
+                            <div>
+                                Last seen: <TimeAgo datetime={recipient?.lastSeen?.toDate()} />
+                            </div>
+                        )}
+                    />) : (
+                    <ChatScreen
+                        pic={recipient?.photoURL}
+                        name={recipientEmail}
+                        lastActive={"This user is Unavailable!"}
+                    />
                 )}
 
             </ChatContainer>

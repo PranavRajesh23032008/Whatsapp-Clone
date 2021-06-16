@@ -8,7 +8,8 @@ import firebase from "firebase"
 import styled from "styled-components"
 import db, { auth } from "../firebase"
 import Message from "./Message";
-import { ArrowBack, Close, Send } from "@material-ui/icons";
+import { ArrowBack, Close, Send, ArrowDownward } from "@material-ui/icons";
+
 
 
 const ChatScreen = ({ name, pic, lastActive, email }) => {
@@ -28,11 +29,12 @@ const ChatScreen = ({ name, pic, lastActive, email }) => {
 
 
   const ScrollToBottom = () => {
-    endOfMessagesRef.current.scrollIntoView({
+    endOfMessagesRef.current?.scrollIntoView({
       behavior: "smooth",
       block: "start",
     });
   };
+
 
   function closeModal() {
     setIsOpen(false)
@@ -41,7 +43,7 @@ const ChatScreen = ({ name, pic, lastActive, email }) => {
   function openModal() {
     setIsOpen(true)
   }
-
+  ScrollToBottom()
   const send = (e) => {
     e.preventDefault();
     db.collection("users").doc(user.email).set(
@@ -56,6 +58,7 @@ const ChatScreen = ({ name, pic, lastActive, email }) => {
       user: user.email,
       photoURL: user.photoURL,
     });
+
     setMessage("")
     ScrollToBottom();
   }
@@ -128,11 +131,16 @@ const ChatScreen = ({ name, pic, lastActive, email }) => {
         }} className={"flex-col ml-1"}>
           <p style={{ color: "#515151" }} className={"text-lg font-semibold "}>{name}</p>
           <p className={"text-xs text-gray-500"}>{lastActive}</p>
+
         </HeaderInformation>
+        <IconButton className={"focus:outline-none "} style={{
+          boxShadow: "0 1px 2px rgba(0,0,0,0.19), 0 0.6px 0.6px rgba(0,0,0,0.23)",
+        }} onClick={ScrollToBottom}>
+          <ArrowDownward />
+        </IconButton>
       </Header>
       {/* Message Field */}
       <MessageContainer className="doodle removeScroller p-3 ">
-        {ScrollToBottom}
         {messagesSnapshot?.docs.map((message) => (
           <Message userName={name} key={message.id} user={message.data().user} message={{
             ...message.data(),
@@ -221,6 +229,4 @@ const Input = styled.input`
   background-color: transparent
 `;
 
-const EndOfMessage = styled.div`
-  margin-bottom: 50px;
-`;
+const EndOfMessage = styled.div``;

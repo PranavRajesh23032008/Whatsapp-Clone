@@ -1,4 +1,4 @@
-import { Avatar, IconButton, Menu, MenuItem } from "@material-ui/core";
+import { Avatar, Button, IconButton, Menu, MenuItem } from "@material-ui/core";
 import React, { Fragment, useState } from "react";
 import { DeleteSharp, MoreVert } from "@material-ui/icons";
 import { useCollection } from "react-firebase-hooks/firestore";
@@ -29,10 +29,10 @@ const SidebarChat = ({ id, users, lastMessage }) => {
     };
 
     return (
-        <div
+        <button
             onClick={goToChatScreen}
             style={{
-                padding: "20px"
+                padding: "20px",
             }}
             className={"w-full focus:outline-none text-left flex items-center cursor-pointer hover:bg-white border-b bg-gray-100 hover:transition-all"}
         >
@@ -53,7 +53,7 @@ const SidebarChat = ({ id, users, lastMessage }) => {
             }
 
 
-        </div >
+        </button >
     )
 }
 
