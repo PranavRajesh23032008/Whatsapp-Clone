@@ -117,16 +117,7 @@ const ChatScreen = ({ name, pic, lastActive, email }) => {
                   </div>
                   <button type="button" className={"focus:outline-none"} />
                 </div>
-                {/*
-                    
-                    <div className={"p-2"}>
 
-                    </div>
-                  </div>
-                </div>
-                <div className="mt-4">
-                  <button type="button" className={"focus:outline-none"} />
-                </div> */}
               </Transition.Child>
             </div>
           </Dialog>
@@ -162,7 +153,9 @@ const ChatScreen = ({ name, pic, lastActive, email }) => {
           placeholder={`Send a message to ${name}`}
         />
 
-        <ButtonIcon className={"focus:outline-none"} disabled={!message} type="submit" onClick={send} >
+        <ButtonIcon style={{
+          boxShadow: "0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)",
+        }} className={"focus:outline-none "} disabled={!message} type="submit" onClick={send} >
           <Send />
         </ButtonIcon>
       </InputContainer>
