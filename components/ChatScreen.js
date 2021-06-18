@@ -209,7 +209,7 @@ const HeaderInformation = styled.div`
 
 const MessageContainer = styled.div`
 flex: 1;
-overflow: scroll;
+overflow: auto;
 `;
 
 const InputContainer = styled.form`

@@ -168,7 +168,7 @@ const Sidebar = () => {
                 </div>
             </SidebarTopPart>
             {/* Chat List */}
-            <div style={{ height: "87.5vh" }} className={"removeScroller overflow-scroll"}>
+            <div style={{ height: "87.5vh" }} className={"overflow-auto"}>
                 {chatsSnapshot?.docs.map((chat) => (
                     <SidebarChat key={chat.id} id={chat.id} users={chat.data().users} />
                 ))}

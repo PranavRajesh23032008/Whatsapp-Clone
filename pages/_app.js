@@ -18,6 +18,7 @@ function MyApp({ Component, pageProps }) {
           name: user.displayName,
           lastSeen: firebase.firestore.FieldValue.serverTimestamp(),
           photoURL: user.photoURL,
+          statusMessage: "",
           uuid: user.uid
         },
       );

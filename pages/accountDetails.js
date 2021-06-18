@@ -4,6 +4,7 @@ import { useRouter } from "next/router"
 import Head from "next/head"
 import { IconButton } from '@material-ui/core';
 import styled from "styled-components"
+import { Delete, Edit } from '@material-ui/icons';
 
 
 const accountDetails = () => {
@@ -21,9 +22,9 @@ const accountDetails = () => {
             </Head>
             {/* Top of Sidebar */}
             <div style={{ backgroundColor: "#00bfa5" }} className={"text-white px-2 py-5 w-full text-lg"}>
-                <IconButton className={"focus:outline-none mr-3"}>
+                <ButtonIconAccountDetails className={"mr-3"}>
                     <ArrowBackIcon onClick={goBack} className={"cursor-pointer text-white"} />
-                </IconButton>
+                </ButtonIconAccountDetails>
                 <span className={"ml-1"}>Profile</span>
             </div>
             {/* Details */}
@@ -45,6 +46,7 @@ const accountDetails = () => {
                     {user.email}
                 </p>
             </div>
+            
         </AccountDetails>
     )
 }
@@ -55,3 +57,8 @@ const AccountDetails = styled.div`
 @media (max-width: 769px) {
     width: 100%
   }`;
+
+const ButtonIconAccountDetails = styled(IconButton)`
+padding: 10px;
+:focus {outline: none}
+`
