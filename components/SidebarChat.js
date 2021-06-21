@@ -29,12 +29,12 @@ const SidebarChat = ({ id, users, lastMessage }) => {
     };
 
     return (
-        <button
+        <div
             onClick={goToChatScreen}
             style={{
                 padding: "20px",
             }}
-            className={"w-full focus:outline-none text-left flex items-center cursor-pointer hover:bg-white border-b bg-gray-100 hover:transition-all"}
+            className={"w-full dark:hover:bg-gray-500 focus:outline-none text-left flex items-center cursor-pointer hover:bg-white border-b bg-gray-100 dark:bg-gray-600 dark:border-gray-700 dark:text-gray-200 hover:transition-all"}
         >
             {recipient ?
                 <Avatar src={recipient?.photoURL} />
@@ -53,7 +53,7 @@ const SidebarChat = ({ id, users, lastMessage }) => {
             }
 
 
-        </button >
+        </div >
     )
 }
 

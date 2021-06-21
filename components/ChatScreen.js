@@ -65,7 +65,7 @@ const ChatScreen = ({ name, pic, lastActive, email }) => {
   return (
     <Container>
       {/* Header */}
-      <Header className={"bg-gray-100"}>
+      <Header className={"bg-gray-100 dark:bg-gray-700 dark:text-white"}>
         <ButtonIcon className={"mr-3 focus:outline-none cursor-pointer"}>
           < ArrowBack onClick={() => { router.push("/") }} />
         </ButtonIcon>
@@ -129,18 +129,16 @@ const ChatScreen = ({ name, pic, lastActive, email }) => {
         <HeaderInformation style={{
           marginLeft: 10,
         }} className={"flex-col ml-1"}>
-          <p style={{ color: "#515151" }} className={"text-lg font-semibold "}>{name}</p>
-          <p className={"text-xs text-gray-500"}>{lastActive}</p>
+          <p className={"dark:text-white text-lg font-semibold text-gray-900"}>{name}</p>
+          <p className={"dark:text-white text-xs text-gray-500"}>{lastActive}</p>
 
         </HeaderInformation>
-        <IconButton className={"focus:outline-none "} style={{
-          boxShadow: "0 1px 2px rgba(0,0,0,0.19), 0 0.6px 0.6px rgba(0,0,0,0.23)",
-        }} onClick={ScrollToBottom}>
+        <IconButton className={"dark:text-white dark:bg-gray-600 focus:outline-none shadow-lg hover:shadow-sm dark:hover:bg-gray-600"} onClick={ScrollToBottom}>
           <ArrowDownward />
         </IconButton>
       </Header>
       {/* Message Field */}
-      <MessageContainer className="doodle removeScroller p-3 ">
+      <MessageContainer className="p-3 doodle dark:bg-gray-500">
         {messagesSnapshot?.docs.map((message) => (
           <Message userName={name} key={message.id} user={message.data().user} message={{
             ...message.data(),
@@ -152,7 +150,7 @@ const ChatScreen = ({ name, pic, lastActive, email }) => {
       {/* Input Field */}
 
 
-      <InputContainer className={"bg-gray-100"}>
+      <InputContainer className={"bg-gray-100 dark:bg-gray-600 dark:text-white"}>
 
         <Input
           value={message}
@@ -163,7 +161,7 @@ const ChatScreen = ({ name, pic, lastActive, email }) => {
 
         <ButtonIcon style={{
           boxShadow: "0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)",
-        }} className={"focus:outline-none "} disabled={!message} type="submit" onClick={send} >
+        }} className={"dark:text-white dark:bg-gray-600 focus:outline-none shadow-lg hover:shadow-sm dark:hover:bg-gray-600"} disabled={!message} type="submit" onClick={send} >
           <Send />
         </ButtonIcon>
       </InputContainer>
@@ -189,10 +187,9 @@ const ButtonIcon = styled(IconButton)`
 
 const Header = styled.div`
   align-items: center;
-  padding: 20px;
+  padding: 18px;
   display: flex;
   justify-content: space-between;
-  border-bottom: 1px solid lightgray;
   background-color: #f5f5f5;
 `;
 
