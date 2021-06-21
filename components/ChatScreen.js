@@ -110,11 +110,11 @@ const ChatScreen = ({ name, pic, lastActive, email }) => {
                     <img className={"w-40 h-40 rounded-l-2xl"} src={pic} />
                     <div className={"p-2"}>
                       <div>
-                        <span className={"font-bold text-whatsapp_green"}>Name:</span> <span className={"text-white"}>{name}</span>
+                        <span className={"font-bold text-whatsapp_green"}>Name:</span> <span className={"dark:text-white"}>{name}</span>
                         <br />
-                        <span className={"font-bold text-whatsapp_green"}>Email:</span><span className={"text-white"}>{email}</span>
+                        <span className={"font-bold text-whatsapp_green"}>Email:</span><span className={"dark:text-white"}>{email}</span>
                         <br />
-                        <span className={"font-bold text-whatsapp_green"}>Last Active:</span> <span className={"text-white"}>{lastActive}</span>
+                        <span className={"font-bold text-whatsapp_green"}>Last Active:</span> <span className={"dark:text-white"}>{lastActive}</span>
                       </div>
                     </div>
                   </div>
