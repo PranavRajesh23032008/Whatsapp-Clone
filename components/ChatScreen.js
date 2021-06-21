@@ -105,16 +105,16 @@ const ChatScreen = ({ name, pic, lastActive, email }) => {
                 leaveFrom="opacity-100 scale-100"
                 leaveTo="opacity-0 scale-95"
               >
-                <div className="inline-block w-full max-w-md pt-5 px-5 my-8 overflow-hidden justify-content-center text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
+                <div className="dark:bg-gray-700 inline-block w-full max-w-md pt-5 px-5 my-8 overflow-hidden justify-content-center text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
                   <div className={"flex"}>
                     <img className={"w-40 h-40 rounded-l-2xl"} src={pic} />
                     <div className={"p-2"}>
                       <div>
-                        <span className={"font-bold text-whatsapp_green"}>Name:</span> {name}
+                        <span className={"font-bold text-whatsapp_green"}>Name:</span> <span className={"text-white"}>{name}</span>
                         <br />
-                        <span className={"font-bold text-whatsapp_green"}>Email:</span> {email}
+                        <span className={"font-bold text-whatsapp_green"}>Email:</span><span className={"text-white"}>{email}</span>
                         <br />
-                        <span className={"font-bold text-whatsapp_green"}>Last Active:</span> {lastActive}
+                        <span className={"font-bold text-whatsapp_green"}>Last Active:</span> <span className={"text-white"}>{lastActive}</span>
                       </div>
                     </div>
                   </div>
