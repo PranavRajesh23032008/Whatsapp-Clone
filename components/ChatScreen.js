@@ -11,7 +11,6 @@ import Message from "./Message";
 import { ArrowBack, Close, Send, ArrowDownward } from "@material-ui/icons";
 
 
-
 const ChatScreen = ({ name, pic, lastActive, email }) => {
 
   const [user] = useAuthState(auth);

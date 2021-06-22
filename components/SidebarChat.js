@@ -9,6 +9,7 @@ import getRecipientEmail from "../utils/getRecipientEmail";
 import { useRouter } from "next/router"
 
 const SidebarChat = ({ id, users, lastMessage }) => {
+
     const [anchorEl, setAnchorEl] = useState(null);
 
     const handleClose = () => {

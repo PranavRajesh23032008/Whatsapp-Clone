@@ -4,6 +4,7 @@ import styled from "styled-components";
 import moment from "moment";
 
 function Message({ user, message, userName }) {
+
   const [userLoggedIn] = useAuthState(auth);
 
   const TypeOfMessage = user === userLoggedIn.email ? Sender : Reciever;
