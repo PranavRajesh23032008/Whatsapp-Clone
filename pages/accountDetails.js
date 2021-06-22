@@ -28,26 +28,26 @@ const accountDetails = () => {
             {/* Top of Sidebar */}
             <div className={"dark:border-gray-800 dark:border-r bg-gray-200 dark:bg-gray-700 flex items-center p-5 text-white px-2 py-5 w-full text-lg"}>
                 <ButtonIconAccountDetails className={"mr-3"}>
-                    <ArrowBackIcon onClick={goBack} className={"cursor-pointer text-gray-900 dark:text-white"} />
+                    <ArrowBackIcon onClick={goBack} className={"cursor-pointer dark:text-white"} />
                 </ButtonIconAccountDetails>
-                <span className={"ml-1 text-gray-900 dark:text-white"}>Profile</span>
+                <span className={"ml-1 text-gray-600 dark:text-white"}>Profile</span>
             </div>
             {/* Details */}
             <img src={user.photoURL} className={"rounded-full h-52 w-52 my-5 mx-auto"} />
 
-            <div className={"bg-white dark:bg-gray-500 shadow-sm px-5 py-2 mb-2"}>
+            <div className={"bg-white dark:bg-gray-500 shadow-md px-5 py-2 mb-2"}>
                 <div className={"text-gray-600 dark:text-gray-200 text-sm font-semibold"}>
                     Your Name
                 </div>
-                <p className={"my-2 dark:text-gray-300 dark:text-white text-gray-600 text-md"}>
+                <p className={"my-2 dark:text-gray-300 text-gray-500 text-md"}>
                     {user.displayName}
                 </p>
             </div>
-            <div className={"bg-white dark:bg-gray-500 shadow-sm px-5 py-2 mb-2"}>
+            <div className={"bg-white dark:bg-gray-500 shadow-md px-5 py-2 mb-2"}>
                 <div className={"text-gray-600 dark:text-gray-200 text-sm font-semibold"}>
                     Your Email
                 </div>
-                <p className={"my-2 dark:text-gray-300 dark:text-white text-gray-600 text-md"}>
+                <p className={"my-2 dark:text-gray-300 text-gray-500 text-md"}>
                     {user.email}
                 </p>
             </div>
