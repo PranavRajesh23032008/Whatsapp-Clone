@@ -84,7 +84,7 @@ const Sidebar = () => {
     }
 
     return (
-        <SidebarComponent className={" bg-gray-100 dark:bg-gray-600"}>
+        <SidebarComponent className={" bg-gray-100 dark:bg-gray-500"}>
         
             <SidebarTopPart className={"dark:border-gray-800 dark:border-r bg-gray-200 dark:bg-gray-700 flex items-center p-5"}>
                 <Avatar className={"cursor-pointer"} onClick={handleClick} src={user?.photoURL} />
@@ -183,11 +183,11 @@ const Sidebar = () => {
                 )}
             </SidebarTopPart>
             {/* Chat List */}
-            <Chats className={"overflow-auto"}>
+            <div className={"overflow-auto"}>
                 {chatsSnapshot?.docs.map((chat) => (
                     <SidebarChat key={chat.id} id={chat.id} users={chat.data().users} />
                 ))}
-            </Chats>
+            </div>
         </SidebarComponent>
     )
 }
@@ -195,11 +195,13 @@ const Sidebar = () => {
 export default Sidebar
 
 const SidebarComponent = styled.div`
-width:100%;
-height: 100vh;
-@media (min-width: 768px) {
-    width: 330px
-};
+    flex: 0.45;
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    @media (min-width: 768px) {
+        width: 330px
+    }
 `;
 
 const SidebarTopPart = styled.div`
@@ -208,9 +210,4 @@ z-index: 100;
 top: 0;
 display: flex;
 align-items: center;
-`;
-
-const Chats = styled.div`
-flex-direction: column;    
-flex:1
-`;
+`; 

@@ -67,7 +67,7 @@ const ChatScreen = ({ name, pic, lastActive, email }) => {
       {/* Header */}
       <Header className={"bg-gray-100 dark:bg-gray-700 dark:text-white"}>
         <ButtonIcon className={"mr-3 focus:outline-none cursor-pointer"}>
-          < ArrowBack onClick={() => { router.push("/") }} />
+          < ArrowBack className={"dark:text-white"} onClick={() => { router.push("/") }} />
         </ButtonIcon>
         <Avatar onClick={openModal} className={"cursor-pointer"} src={pic} />
         <Transition appear show={isOpen} as={Fragment}>
