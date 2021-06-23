@@ -1,23 +1,36 @@
 import { Avatar, IconButton } from "@material-ui/core";
 import { useRouter } from "next/router";
 import { Dialog, Transition } from '@headlessui/react'
-import { Fragment, useRef, useState } from 'react'
+import { Fragment, useEffect, useRef, useState } from 'react'
 import { useAuthState } from "react-firebase-hooks/auth"
 import { useCollection } from "react-firebase-hooks/firestore";
 import firebase from "firebase"
 import styled from "styled-components"
 import db, { auth } from "../firebase"
 import Message from "./Message";
-import { ArrowBack, Close, Send, ArrowDownward } from "@material-ui/icons";
-
+import { ArrowBack, Close, Send, ArrowDownward, Mood } from "@material-ui/icons";
+import 'emoji-mart/css/emoji-mart.css'
+// import { Picker } from 'emoji-mart'
 
 const ChatScreen = ({ name, pic, lastActive, email }) => {
-
   const [user] = useAuthState(auth);
   const [message, setMessage] = useState("")
   const endOfMessagesRef = useRef(null);
   const router = useRouter()
   const [isOpen, setIsOpen] = useState(false)
+  // const [emojiPickerState, SetEmojiPicker] = useState(false);
+  // const [chosenEmoji, setChosenEmoji] = useState(null);
+
+  const selectEmoji = (event, emojiObject) => {
+    setMessage(message + emojiObject.emoji)
+  }
+
+  const addEmoji = e => {
+    let emoji = e.native;
+    setMessage(
+      message + emoji
+    );
+  };
   const [messagesSnapshot] = useCollection(
     db
       .collection("chats")
@@ -27,11 +40,15 @@ const ChatScreen = ({ name, pic, lastActive, email }) => {
   );
 
 
-  const ScrollToBottom = () => {
+  const SmoothScrollToBottom = () => {
     endOfMessagesRef.current?.scrollIntoView({
       behavior: "smooth",
       block: "start",
     });
+  };
+
+  const ScrollToBottom = () => {
+    endOfMessagesRef.current?.scrollIntoView({});
   };
 
 
@@ -59,7 +76,7 @@ const ChatScreen = ({ name, pic, lastActive, email }) => {
     });
 
     setMessage("")
-    ScrollToBottom();
+    SmoothScrollToBottom();
   }
   return (
     <Container>
@@ -132,25 +149,32 @@ const ChatScreen = ({ name, pic, lastActive, email }) => {
           <p className={"dark:text-white text-xs text-gray-500"}>{lastActive}</p>
 
         </HeaderInformation>
-        <IconButton className={"dark:text-white dark:bg-gray-600 focus:outline-none shadow-lg hover:shadow-sm dark:hover:bg-gray-600"} onClick={ScrollToBottom}>
+        <IconButton className={"dark:text-white dark:bg-gray-600 focus:outline-none shadow-lg hover:shadow-sm dark:hover:bg-gray-600"} onClick={SmoothScrollToBottom}>
           <ArrowDownward />
         </IconButton>
       </Header>
       {/* Message Field */}
       <MessageContainer className="p-3 doodle dark:bg-gray-500">
+
         {messagesSnapshot?.docs.map((message) => (
           <Message userName={name} key={message.id} user={message.data().user} message={{
             ...message.data(),
             timestamp: message.data().timestamp?.toDate().getTime(),
           }} />
+
         ))}
         <EndOfMessage ref={endOfMessagesRef} />
+
       </MessageContainer>
+      {/* <div className={""}>
+        <Picker onSelect={addEmoji} className={""} />
+      </div> */}
       {/* Input Field */}
 
-
       <InputContainer className={"bg-gray-100 dark:bg-gray-600 dark:text-white"}>
-
+        {/* <IconButton className={"dark:text-white focus:outline-none"}>
+          <Mood />
+        </IconButton> */}
         <Input
           value={message}
           onChange={(e) => setMessage(e.target.value)}
@@ -213,7 +237,6 @@ align-items: center;
 padding: 20px;
 display: flex;
 justify-content: space-between;
-border-bottom: 1px solid lightgray;
 background-color: #f5f5f5;
 
 `;

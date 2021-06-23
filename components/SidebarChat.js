@@ -10,11 +10,6 @@ import { useRouter } from "next/router"
 
 const SidebarChat = ({ id, users, lastMessage }) => {
 
-    const [anchorEl, setAnchorEl] = useState(null);
-
-    const handleClose = () => {
-        setAnchorEl(null);
-    };
     const router = useRouter()
     const [user] = useAuthState(auth)
     const [recipientSnapshot] = useCollection(
@@ -23,12 +18,9 @@ const SidebarChat = ({ id, users, lastMessage }) => {
     const recipient = recipientSnapshot?.docs?.[0]?.data();
     const recipientEmail = getRecipientEmail(users, user);
     const goToChatScreen = () => {
+        router.push(`/`);
         router.push(`/chat/${id}`);
     }
-    const ChatOption = (event) => {
-        setAnchorEl(event.currentTarget);
-    };
-
     return (
         <div
             onClick={goToChatScreen}
@@ -40,7 +32,7 @@ const SidebarChat = ({ id, users, lastMessage }) => {
             {recipient ?
                 <Avatar src={recipient?.photoURL} />
                 :
-                <Avatar>{recipientEmail[0].toUpperCase()}</Avatar>
+                <Avatar />
             }
             {recipient ?
                 <div className={"ml-2 mr-3"}>

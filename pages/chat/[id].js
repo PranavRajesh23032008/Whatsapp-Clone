@@ -44,8 +44,9 @@ const Chat = ({ chat, messages }) => {
                         )}
                     />) : (
                     <ChatScreen
-                        pic={recipient?.photoURL}
+                        pic={"https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZr-0S7A9X_KA5TAUJ_uEde_8ON9qL_byngLVqAYiRnw8LXxyE6tH89dNgZtcGp5DL5tU&usqp=CAU"}
                         name={recipientEmail}
+                        email={recipientEmail}
                         lastActive={"This user is Unavailable!"}
                     />
                 )}

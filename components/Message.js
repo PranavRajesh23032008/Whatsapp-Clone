@@ -2,6 +2,8 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { auth } from "../firebase";
 import styled from "styled-components";
 import moment from "moment";
+import Linkify from "react-linkify"
+import { MoreVert } from "@material-ui/icons";
 
 function Message({ user, message, userName }) {
 
@@ -13,9 +15,15 @@ function Message({ user, message, userName }) {
     <div>
       <TypeOfMessage>
         <p>{userName}</p>
-        {message.message}
+
+        <Linkify properties={{ target: '_blank', style: { color: 'red', fontWeight: 'bold' } }}>
+          {message.message}
+          {/* <span>
+            <MoreVert style={{ fontSize: "14px", marginLeft: "auto", marginLeft: "auto" }} />
+          </span> */}
+        </Linkify>
         <Timestamp>
-          {message.timestamp ? moment(message.timestamp).format("LT") : "..."}
+          {message.timestamp ? moment(message.timestamp).format("LT") : ""}
         </Timestamp>
       </TypeOfMessage>
     </div>
@@ -34,12 +42,17 @@ const MessageElement = styled.p`
   position: relative;
 `;
 
+const MessageOptions = styled.div``;
+
 const Sender = styled(MessageElement)`
   background-color: #E1FFC7;
   word-break: break-word;
   margin-left: auto;
   > p {
     display: none;
+  };
+  >span {
+    font-size: 14px;
   }
 `;
 
@@ -51,10 +64,13 @@ const Reciever = styled(MessageElement)`
     font-size:13px;
     margin-bottom: 1px;
     color: #11887A;
+  };
+  >span {
+    display: none
   }
 `;
 
-const Timestamp = styled.span`
+const Timestamp = styled.h1`
   color: gray;
   padding: 10px;
   font-size: 9px;
