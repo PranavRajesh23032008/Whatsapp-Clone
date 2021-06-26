@@ -26,11 +26,11 @@ const accountDetails = () => {
                 </title>
             </Head>
             {/* Top of Sidebar */}
-            <div className={"dark:border-gray-800 dark:border-r bg-gray-200 dark:bg-gray-700 flex items-center p-5 text-white px-2 py-5 w-full text-lg"}>
+            <div className={"dark:border-gray-800 dark:border-r bg-white shadow-md dark:bg-gray-700 flex items-center p-5 text-white px-2 py-5 w-full text-lg"}>
                 <ButtonIconAccountDetails className={"mr-3"}>
-                    <ArrowBackIcon onClick={goBack} className={"cursor-pointer dark:text-white"} />
+                    <ArrowBackIcon onClick={goBack} className={"cursor-pointer dark:text-white text-black"} />
                 </ButtonIconAccountDetails>
-                <span className={"ml-1 text-gray-600 dark:text-white"}>Profile</span>
+                <span className={"ml-1 text-black dark:text-white"}>Profile</span>
             </div>
             {/* Details */}
             <img src={user.photoURL} className={"rounded-full h-52 w-52 my-5 mx-auto"} />

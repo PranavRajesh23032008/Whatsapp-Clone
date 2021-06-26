@@ -1,4 +1,4 @@
-import { Avatar, IconButton } from "@material-ui/core";
+import { Avatar, IconButton, CircularProgress } from "@material-ui/core";
 import { useRouter } from "next/router";
 import { Dialog, Transition } from '@headlessui/react'
 import { Fragment, useEffect, useRef, useState } from 'react'
@@ -10,17 +10,28 @@ import db, { auth } from "../firebase"
 import Message from "./Message";
 import { ArrowBack, Close, Send, ArrowDownward, Mood } from "@material-ui/icons";
 import 'emoji-mart/css/emoji-mart.css'
-// import { Picker } from 'emoji-mart'
+import { Picker } from 'emoji-mart'
+import useDarkMode from "../useDarkMode"
 
 const ChatScreen = ({ name, pic, lastActive, email }) => {
   const [user] = useAuthState(auth);
   const [message, setMessage] = useState("")
+  const [displayState, setDisplayState] = useState(false)
+  const [display, setDisplay] = useState("none")
   const endOfMessagesRef = useRef(null);
   const router = useRouter()
+  const [pickerTheme, setPickerTheme] = useState("light")
   const [isOpen, setIsOpen] = useState(false)
-  // const [emojiPickerState, SetEmojiPicker] = useState(false);
-  // const [chosenEmoji, setChosenEmoji] = useState(null);
+  const [colorTheme, setTheme] = useDarkMode();
 
+  const showEmojiPicker = () => {
+    setDisplayState(!displayState)
+    if (displayState === false) {
+      setDisplay("block")
+    } else (
+      setDisplay("none")
+    )
+  }
   const selectEmoji = (event, emojiObject) => {
     setMessage(message + emojiObject.emoji)
   }
@@ -47,10 +58,6 @@ const ChatScreen = ({ name, pic, lastActive, email }) => {
     });
   };
 
-  const ScrollToBottom = () => {
-    endOfMessagesRef.current?.scrollIntoView({});
-  };
-
 
   function closeModal() {
     setIsOpen(false)
@@ -59,9 +66,10 @@ const ChatScreen = ({ name, pic, lastActive, email }) => {
   function openModal() {
     setIsOpen(true)
   }
-  ScrollToBottom()
+  SmoothScrollToBottom()
   const send = (e) => {
     e.preventDefault();
+    SmoothScrollToBottom()
     db.collection("users").doc(user.email).set(
       {
         lastSeen: firebase.firestore.FieldValue.serverTimestamp(),
@@ -74,9 +82,7 @@ const ChatScreen = ({ name, pic, lastActive, email }) => {
       user: user.email,
       photoURL: user.photoURL,
     });
-
     setMessage("")
-    SmoothScrollToBottom();
   }
   return (
     <Container>
@@ -155,7 +161,7 @@ const ChatScreen = ({ name, pic, lastActive, email }) => {
       </Header>
       {/* Message Field */}
       <MessageContainer className="p-3 doodle dark:bg-gray-500">
-
+    
         {messagesSnapshot?.docs.map((message) => (
           <Message userName={name} key={message.id} user={message.data().user} message={{
             ...message.data(),
@@ -163,18 +169,23 @@ const ChatScreen = ({ name, pic, lastActive, email }) => {
           }} />
 
         ))}
+        
         <EndOfMessage ref={endOfMessagesRef} />
-
+        <Picker theme={pickerTheme} style={{ 
+          display: display,
+          position: "absolute",
+          bottom: 0,
+          marginBottom: 100,
+        }} className={""} emoji={"smiley"} title={"Pick an Emoji"} set={'apple'} size={30} onSelect={addEmoji} />
       </MessageContainer>
-      {/* <div className={""}>
-        <Picker onSelect={addEmoji} className={""} />
-      </div> */}
+      
       {/* Input Field */}
-
+      
       <InputContainer className={"bg-gray-100 dark:bg-gray-600 dark:text-white"}>
-        {/* <IconButton className={"dark:text-white focus:outline-none"}>
+        
+        <IconButton onClick={showEmojiPicker} className={"dark:text-white focus:outline-none"}>
           <Mood />
-        </IconButton> */}
+        </IconButton>
         <Input
           value={message}
           onChange={(e) => setMessage(e.target.value)}
