@@ -16,11 +16,8 @@ function Message({ user, message, userName }) {
       <TypeOfMessage>
         <p>{userName}</p>
 
-        <Linkify properties={{ target: '_blank', style: { color: 'red', fontWeight: 'bold' } }}>
+        <Linkify>
           {message.message}
-          {/* <span>
-            <MoreVert style={{ fontSize: "14px", marginLeft: "auto", marginLeft: "auto" }} />
-          </span> */}
         </Linkify>
         <Timestamp>
           {message.timestamp ? moment(message.timestamp).format("LT") : ""}

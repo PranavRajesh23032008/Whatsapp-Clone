@@ -8,7 +8,7 @@ import firebase from "firebase"
 import styled from "styled-components"
 import db, { auth } from "../firebase"
 import Message from "./Message";
-import { ArrowBack, Close, Send, ArrowDownward, Mood } from "@material-ui/icons";
+import { ArrowBack, Send, ArrowDownward, Mood, AttachFile } from "@material-ui/icons";
 import 'emoji-mart/css/emoji-mart.css'
 import { Picker } from 'emoji-mart'
 import useDarkMode from "../useDarkMode"
@@ -22,8 +22,8 @@ const ChatScreen = ({ name, pic, lastActive, email }) => {
   const router = useRouter()
   const [pickerTheme, setPickerTheme] = useState("light")
   const [isOpen, setIsOpen] = useState(false)
-  const [colorTheme, setTheme] = useDarkMode();
-
+  const [imageToPost, setImageToPost] = useState(null);
+  const filepickerRef = useRef(null);
   const showEmojiPicker = () => {
     setDisplayState(!displayState)
     if (displayState === false) {
@@ -66,10 +66,25 @@ const ChatScreen = ({ name, pic, lastActive, email }) => {
   function openModal() {
     setIsOpen(true)
   }
-  SmoothScrollToBottom()
+  SmoothScrollToBottom()  
+  const addImageToPost = (e) => {
+    const reader = new FileReader();
+    if (e.target.files[0]) {
+      reader.readAsDataURL(e.target.files[0]);
+    }
+
+    reader.onload = (readerEvent) => {
+      setImageToPost(readerEvent.target.result);
+    };
+  };
+
+  const removeImage = () => {
+    setImageToPost(null);
+  };
   const send = (e) => {
     e.preventDefault();
     SmoothScrollToBottom()
+
     db.collection("users").doc(user.email).set(
       {
         lastSeen: firebase.firestore.FieldValue.serverTimestamp(),
@@ -80,10 +95,46 @@ const ChatScreen = ({ name, pic, lastActive, email }) => {
       timestamp: firebase.firestore.FieldValue.serverTimestamp(),
       message: message,
       user: user.email,
-      photoURL: user.photoURL,
-    });
-    setMessage("")
+    })
+    // .then((doc) => {
+    //   if (imageToPost) {
+    //     const uploadTask = storage
+    //       .ref(`messages/${doc.id}`)
+    //       .putString(imageToPost, "data_url");
+
+    //     removeImage();
+
+    //     uploadTask.on(
+    //       "state_changed",
+    //       null,
+    //       (error) => {
+    //         // ERROR function
+    //         console.log(error);
+    //       },
+    //       () => {
+    //         // COMPLETE function
+    //         storage
+    //           .ref("messages")
+    //           .child(doc.id)
+    //           .getDownloadURL()
+    //           .then((url) => {
+    //             db.collection("chats").doc(router.query.id).collection("messages").doc(doc.id).add(
+    //               {
+    //                 postImage: url,
+    //               },
+    //               { merge: true }
+    //             );
+    //           });
+    //       }
+    //     );
+    //   } else {
+    //     return null
+    //   }
+    // });
+
+  inputRef.current.value = "";
   }
+
   return (
     <Container>
       {/* Header */}
@@ -155,7 +206,13 @@ const ChatScreen = ({ name, pic, lastActive, email }) => {
           <p className={"dark:text-white text-xs text-gray-500"}>{lastActive}</p>
 
         </HeaderInformation>
-        <IconButton className={"dark:text-white dark:bg-gray-600 focus:outline-none shadow-lg hover:shadow-sm dark:hover:bg-gray-600"} onClick={SmoothScrollToBottom}>
+        
+        <IconButton onClick={() => filepickerRef.current.click()} className={"dark:text-white focus:outline-none"}>
+          <input type={"file"} hidden onChange={addImageToPost}
+            ref={filepickerRef}/>
+          <AttachFile/>
+        </IconButton>
+        <IconButton className={"dark:text-white focus:outline-none shadow-lg hover:shadow-sm"} onClick={SmoothScrollToBottom}>
           <ArrowDownward />
         </IconButton>
       </Header>
@@ -181,23 +238,31 @@ const ChatScreen = ({ name, pic, lastActive, email }) => {
       
       {/* Input Field */}
       
-      <InputContainer className={"bg-gray-100 dark:bg-gray-600 dark:text-white"}>
+      <InputContainer className={"bg-gray-100 dark:bg-gray-600 dark:text-white flex items-center"}>
         
         <IconButton onClick={showEmojiPicker} className={"dark:text-white focus:outline-none"}>
           <Mood />
         </IconButton>
+
         <Input
           value={message}
           onChange={(e) => setMessage(e.target.value)}
           type="text"
           placeholder={`Send a message to ${name}`}
         />
-
-        <ButtonIcon style={{
+        {imageToPost && (
+          <div
+            className="flex flex-col"
+          >
+            <img className="h-10 object-contain " src={imageToPost} alt="" />
+            <p onClick={removeImage} className="transition duration-150 transform hover:underline cursor-pointer text-xs text-red-500 text-center">Remove</p>
+          </div>
+        )}
+        <IconButton style={{
           boxShadow: "0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23)",
-        }} className={"dark:text-white dark:bg-gray-600 focus:outline-none shadow-lg hover:shadow-sm dark:hover:bg-gray-600"} disabled={!message} type="submit" onClick={send} >
+        }} className={"ml-2 dark:text-white dark:bg-gray-600 focus:outline-none shadow-lg hover:shadow-sm dark:hover:bg-gray-600"} disabled={!message && !imageToPost} type="submit" onClick={send} >
           <Send />
-        </ButtonIcon>
+        </IconButton>
       </InputContainer>
     </ Container>
   )

@@ -84,7 +84,7 @@ const Sidebar = () => {
     }
 
     return (
-        <SidebarComponent className={" bg-gray-100 dark:bg-gray-600"}>
+        <SidebarComponent className={"sm:w-80 bg-gray-100 dark:bg-gray-600"}>
         
             <SidebarTopPart className={"dark:border-gray-800 dark:border-r bg-gray-200 dark:bg-gray-700 flex items-center p-5"}>
                 <Avatar className={"cursor-pointer"} onClick={handleClick} src={user?.photoURL} />
@@ -199,9 +199,6 @@ const SidebarComponent = styled.div`
     display: flex;
     flex-direction: column;
     height: 100vh;
-    @media (min-width: 768px) {
-        width: 330px
-    }
 `;
 
 const SidebarTopPart = styled.div`

@@ -28,9 +28,9 @@ const Chat = ({ chat, messages }) => {
                     <title>You are chatting with "{recipientEmail}"</title>
                 )}
             </Head>
-            <SidebarChatSection>
+            <div className={"hidden sm:inline-block"}>
                 <Sidebar />
-            </SidebarChatSection>
+            </div>
             <ChatContainer>
                 {recipient ? (
                     <ChatScreen
@@ -96,10 +96,4 @@ const Container = styled.div`
 const ChatContainer = styled.div`
   flex: 1;
   height: 100vh;
-`;
-
-const SidebarChatSection = styled.div`
-    @media (max-width: 768px) {
-        display: none;
-    };
 `;
