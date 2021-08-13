@@ -58,7 +58,7 @@ const Chat = ({ chat, messages }) => {
 
 export default Chat
 
-export async function getStaticProps(context) {
+export async function getStaticPaths(context) {
 
     const messagesRes = await db.collection("chats").doc(context.query.id)
         .collection("messages")
